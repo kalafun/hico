@@ -13,6 +13,10 @@
 		C3E74FD92C5147D200518958 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E74FD82C5147D200518958 /* Preview Assets.xcassets */; };
 		C3E74FDB2C5147D200518958 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FDA2C5147D200518958 /* Persistence.swift */; };
 		C3E74FDE2C5147D200518958 /* Hico.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FDC2C5147D200518958 /* Hico.xcdatamodeld */; };
+		C3E74FE62C5149FB00518958 /* ZIPFoundation in Frameworks */ = {isa = PBXBuildFile; productRef = C3E74FE52C5149FB00518958 /* ZIPFoundation */; };
+		C3E74FE82C514A3C00518958 /* ZipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FE72C514A3C00518958 /* ZipManager.swift */; };
+		C3E74FEB2C514A8E00518958 /* HICO_MobileDuck.zip in Resources */ = {isa = PBXBuildFile; fileRef = C3E74FEA2C514A8E00518958 /* HICO_MobileDuck.zip */; };
+		C3E74FEE2C5152D800518958 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C3E74FED2C5152D800518958 /* XMLCoder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +27,8 @@
 		C3E74FD82C5147D200518958 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		C3E74FDA2C5147D200518958 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		C3E74FDD2C5147D200518958 /* Hico.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hico.xcdatamodel; sourceTree = "<group>"; };
+		C3E74FE72C514A3C00518958 /* ZipManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipManager.swift; sourceTree = "<group>"; };
+		C3E74FEA2C514A8E00518958 /* HICO_MobileDuck.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HICO_MobileDuck.zip; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -30,6 +36,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E74FEE2C5152D800518958 /* XMLCoder in Frameworks */,
+				C3E74FE62C5149FB00518958 /* ZIPFoundation in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -55,12 +63,13 @@
 		C3E74FD02C5147D000518958 /* Hico */ = {
 			isa = PBXGroup;
 			children = (
-				C3E74FD12C5147D000518958 /* HicoApp.swift */,
 				C3E74FD32C5147D000518958 /* ContentView.swift */,
-				C3E74FD52C5147D200518958 /* Assets.xcassets */,
-				C3E74FDA2C5147D200518958 /* Persistence.swift */,
 				C3E74FDC2C5147D200518958 /* Hico.xcdatamodeld */,
+				C3E74FD12C5147D000518958 /* HicoApp.swift */,
+				C3E74FDA2C5147D200518958 /* Persistence.swift */,
 				C3E74FD72C5147D200518958 /* Preview Content */,
+				C3E74FE92C514A7600518958 /* Resources */,
+				C3E74FE72C514A3C00518958 /* ZipManager.swift */,
 			);
 			path = Hico;
 			sourceTree = "<group>";
@@ -71,6 +80,15 @@
 				C3E74FD82C5147D200518958 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C3E74FE92C514A7600518958 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C3E74FEA2C514A8E00518958 /* HICO_MobileDuck.zip */,
+				C3E74FD52C5147D200518958 /* Assets.xcassets */,
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,6 +107,10 @@
 			dependencies = (
 			);
 			name = Hico;
+			packageProductDependencies = (
+				C3E74FE52C5149FB00518958 /* ZIPFoundation */,
+				C3E74FED2C5152D800518958 /* XMLCoder */,
+			);
 			productName = Hico;
 			productReference = C3E74FCE2C5147D000518958 /* Hico.app */;
 			productType = "com.apple.product-type.application";
@@ -117,6 +139,10 @@
 				Base,
 			);
 			mainGroup = C3E74FC52C5147D000518958;
+			packageReferences = (
+				C3E74FE42C5149FB00518958 /* XCRemoteSwiftPackageReference "ZIPFoundation" */,
+				C3E74FEC2C5152D800518958 /* XCRemoteSwiftPackageReference "XMLCoder" */,
+			);
 			productRefGroup = C3E74FCF2C5147D000518958 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -131,6 +157,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C3E74FEB2C514A8E00518958 /* HICO_MobileDuck.zip in Resources */,
 				C3E74FD92C5147D200518958 /* Preview Assets.xcassets in Resources */,
 				C3E74FD62C5147D200518958 /* Assets.xcassets in Resources */,
 			);
@@ -145,6 +172,7 @@
 			files = (
 				C3E74FDE2C5147D200518958 /* Hico.xcdatamodeld in Sources */,
 				C3E74FDB2C5147D200518958 /* Persistence.swift in Sources */,
+				C3E74FE82C514A3C00518958 /* ZipManager.swift in Sources */,
 				C3E74FD42C5147D000518958 /* ContentView.swift in Sources */,
 				C3E74FD22C5147D000518958 /* HicoApp.swift in Sources */,
 			);
@@ -352,6 +380,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		C3E74FE42C5149FB00518958 /* XCRemoteSwiftPackageReference "ZIPFoundation" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/weichsel/ZIPFoundation.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.9.19;
+			};
+		};
+		C3E74FEC2C5152D800518958 /* XCRemoteSwiftPackageReference "XMLCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "git@github.com:CoreOffice/XMLCoder.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.17.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		C3E74FE52C5149FB00518958 /* ZIPFoundation */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3E74FE42C5149FB00518958 /* XCRemoteSwiftPackageReference "ZIPFoundation" */;
+			productName = ZIPFoundation;
+		};
+		C3E74FED2C5152D800518958 /* XMLCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = C3E74FEC2C5152D800518958 /* XCRemoteSwiftPackageReference "XMLCoder" */;
+			productName = XMLCoder;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		C3E74FDC2C5147D200518958 /* Hico.xcdatamodeld */ = {
