@@ -7,9 +7,10 @@
 
 import SwiftUI
 import CoreData
+import XMLCoder
 
 struct ContentView: View {
-//    @Environment(\.managedObjectContext) private var viewContext
+    //    @Environment(\.managedObjectContext) private var viewContext
 
     var body: some View {
         NavigationView {
@@ -17,6 +18,14 @@ struct ContentView: View {
                 .onAppear {
                     ZipManager.shared.unzipPackage()
                     ZipManager.shared.printExtractedFiles()
+
+                    do {
+                        let data = try Data(contentsOf: ZipManager.shared.structureURL)
+                        let content = try XMLDecoder().decode(Structure.self, from: data)
+                        print(content)
+                    } catch {
+                        print("error getting data representation from structure.xml")
+                    }
                 }
         }
     }

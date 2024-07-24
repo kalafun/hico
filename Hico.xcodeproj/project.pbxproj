@@ -17,6 +17,7 @@
 		C3E74FE82C514A3C00518958 /* ZipManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FE72C514A3C00518958 /* ZipManager.swift */; };
 		C3E74FEB2C514A8E00518958 /* HICO_MobileDuck.zip in Resources */ = {isa = PBXBuildFile; fileRef = C3E74FEA2C514A8E00518958 /* HICO_MobileDuck.zip */; };
 		C3E74FEE2C5152D800518958 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C3E74FED2C5152D800518958 /* XMLCoder */; };
+		C3E74FF12C51579D00518958 /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FF02C51579D00518958 /* Structure.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		C3E74FDD2C5147D200518958 /* Hico.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Hico.xcdatamodel; sourceTree = "<group>"; };
 		C3E74FE72C514A3C00518958 /* ZipManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZipManager.swift; sourceTree = "<group>"; };
 		C3E74FEA2C514A8E00518958 /* HICO_MobileDuck.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HICO_MobileDuck.zip; sourceTree = "<group>"; };
+		C3E74FF02C51579D00518958 /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 		C3E74FD02C5147D000518958 /* Hico */ = {
 			isa = PBXGroup;
 			children = (
+				C3E74FEF2C51579700518958 /* Models */,
 				C3E74FD32C5147D000518958 /* ContentView.swift */,
 				C3E74FDC2C5147D200518958 /* Hico.xcdatamodeld */,
 				C3E74FD12C5147D000518958 /* HicoApp.swift */,
@@ -89,6 +92,14 @@
 				C3E74FD52C5147D200518958 /* Assets.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		C3E74FEF2C51579700518958 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C3E74FF02C51579D00518958 /* Structure.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,6 +186,7 @@
 				C3E74FE82C514A3C00518958 /* ZipManager.swift in Sources */,
 				C3E74FD42C5147D000518958 /* ContentView.swift in Sources */,
 				C3E74FD22C5147D000518958 /* HicoApp.swift in Sources */,
+				C3E74FF12C51579D00518958 /* Structure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

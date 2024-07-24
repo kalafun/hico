@@ -31,6 +31,14 @@ class ZipManager {
         return url
     }()
 
+    lazy var destinationInsideURL: URL = {
+        destinationURL.appendingPathComponent("HICO_MobileDuck")
+    }()
+
+    lazy var structureURL: URL = {
+        destinationInsideURL.appendingPathComponent("structure.xml")
+    }()
+
     func unzipPackage() {
         do {
             // Check if destination directory exists and is empty
@@ -58,7 +66,7 @@ class ZipManager {
     func printExtractedFiles() {
         do {
             let directoryContents = try fileManager.contentsOfDirectory(
-                at: destinationURL.appendingPathComponent("HICO_MobileDuck"), 
+                at: destinationInsideURL,
                 includingPropertiesForKeys: nil, options: []
             )
             for fileURL in directoryContents {
