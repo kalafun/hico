@@ -39,6 +39,10 @@ class ZipManager {
         destinationInsideURL.appendingPathComponent("structure.xml")
     }()
 
+    func documentURL(at path: String) -> URL {
+        destinationInsideURL.appendingPathComponent(path)
+    }
+
     func unzipPackage() {
         do {
             // Check if destination directory exists and is empty

@@ -12,21 +12,27 @@ import XMLCoder
 struct ContentView: View {
     //    @Environment(\.managedObjectContext) private var viewContext
 
-    var body: some View {
-        NavigationView {
-            Text("Hello")
-                .onAppear {
-                    ZipManager.shared.unzipPackage()
-                    ZipManager.shared.printExtractedFiles()
+    @State var content: Content?
 
-                    do {
-                        let data = try Data(contentsOf: ZipManager.shared.structureURL)
-                        let content = try XMLDecoder().decode(Structure.self, from: data)
-                        print(content)
-                    } catch {
-                        print("error getting data representation from structure.xml")
-                    }
-                }
+    var body: some View {
+        NavigationStack {
+            Text("Hello")
+        }
+        .onAppear {
+            ZipManager.shared.unzipPackage()
+            ZipManager.shared.printExtractedFiles()
+            parsePackageContent()
+        }
+    }
+
+    private func parsePackageContent() {
+        do {
+            let data = try Data(contentsOf: ZipManager.shared.structureURL)
+            let structure = try XMLDecoder().decode(Structure.self, from: data)
+            self.content = structure.content
+            print(content!)
+        } catch {
+            print("error getting data representation from structure.xml")
         }
     }
 }

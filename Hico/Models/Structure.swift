@@ -5,8 +5,6 @@
 //  Created by Tomas Bobko on 24.07.24.
 //
 
-import Foundation
-
 struct Structure: Decodable {
     let content: Content
 }
@@ -48,11 +46,11 @@ struct ViewItem: Decodable {
 struct Node: Decodable {
     let id: String
     let nodeId: String
-    let type: String
+    let type: NodeType
     let chapterNumber: String?
     let chapterNumberUsed: Bool?
-    let language: Language
-    let nodes: [Node]?
+    let language: Language?
+    let nodes: [Node]? // Optional to handle nested nodes
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -75,4 +73,11 @@ struct Language: Decodable {
         case title
         case path
     }
+}
+
+enum NodeType: String, Decodable {
+    case manual
+    case part
+    case document
+    case folder
 }
