@@ -15,13 +15,47 @@ struct ContentView: View {
     @State var content: Content?
 
     var body: some View {
-        NavigationStack {
-            NodeView(node: content?.navigationStructure.view.node)
+        NavigationSplitView {
+            if let node = content?.navigationStructure.view.node {
+                List {
+                    nodeContentFor(node: node)
+                }
+                .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
+            }
+        } content: {
+            Text("Content")
+        } detail: {
+            Text("Detail")
         }
         .onAppear {
             ZipManager.shared.unzipPackage()
             ZipManager.shared.printExtractedFiles()
             parsePackageContent()
+        }
+    }
+
+    func nodeContentFor(node: Node) -> some View {
+        if let nodes = node.nodes {
+            AnyView(
+                ForEach(nodes, id: \.id) { node in
+                    DisclosureGroup(
+                        content: { nodeContentFor(node: node) },
+                        label: {
+                            HStack(spacing: 0) {
+                                if let chapterNumber = node.chapterNumber {
+                                    Text(chapterNumber.description + " - ")
+                                }
+                                Text((node.language?.title ?? ""))
+                            }
+                        }
+                    )
+                }
+            )
+        } else {
+            AnyView(
+                Text("\(node.language?.title ?? "")")
+                    .frame(height: 30)
+            )
         }
     }
 
