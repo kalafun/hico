@@ -9,19 +9,35 @@ import SwiftUI
 import CoreData
 import XMLCoder
 
+enum PickerSelection {
+    case content, favourites
+}
+
 struct ContentView: View {
     //    @Environment(\.managedObjectContext) private var viewContext
 
     @State var content: Content?
     @State var selectedNode: Node?
+    @State var pickerSelection = PickerSelection.content
 
     var body: some View {
         NavigationSplitView {
-            if let node = content?.navigationStructure.view.node {
-                List {
-                    nodeContentFor(node: node)
+            VStack {
+                Picker(selection: $pickerSelection) {
+                    Text("Content").tag(PickerSelection.content)
+                    Text("Favourites").tag(PickerSelection.favourites)
+                } label: {
+                    Text("Pick between navigation and Favourites")
                 }
-                .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
+                .pickerStyle(.segmented)
+                .padding(.horizontal)
+
+                if let node = content?.navigationStructure.view.node {
+                    List {
+                        nodeContentFor(node: node)
+                    }
+                    .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
+                }
             }
         } detail: {
             NodeView(node: selectedNode)
@@ -45,6 +61,9 @@ struct ContentView: View {
                                     Text(chapterNumber.description + " - ")
                                 }
                                 Text((node.language?.title ?? ""))
+
+                                Spacer()
+                                favIndicator(node: node)
                             }
                         }
                     )
@@ -55,11 +74,26 @@ struct ContentView: View {
                 Button {
                     selectedNode = node
                 } label: {
-                    Text("\(node.language?.title ?? "")")
+                    HStack(spacing: 0) {
+                        Text("\(node.language?.title ?? "")")
+
+                        Spacer()
+                        favIndicator(node: node)
+                    }
                 }
                     .frame(height: 30)
             )
         }
+    }
+
+    private func favIndicator(node: Node) -> some View {
+        Button {
+            print("did Tap node:\(node.language?.title)")
+        } label: {
+            // TODO: Show filled heart when the content is favourited
+            Image(systemName: "heart")
+        }
+        .buttonStyle(PlainButtonStyle())
     }
 
     private func parsePackageContent() {
