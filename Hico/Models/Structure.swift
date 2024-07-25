@@ -64,9 +64,13 @@ struct Node: Decodable {
     }
 }
 
-extension Node: Equatable {
+extension Node: Equatable, Hashable {
     static func == (lhs: Node, rhs: Node) -> Bool {
         lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
 

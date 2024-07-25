@@ -33,15 +33,18 @@ struct ContentView: View {
                 .padding(.horizontal)
 
                 if let node = content?.navigationStructure.view.node {
-                    List {
+                    List(selection: $selectedNode) {
                         nodeContentFor(node: node)
                     }
                     .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
+
                 }
             }
         } detail: {
             NodeView(node: selectedNode)
+                .ignoresSafeArea()
         }
+        .navigationSplitViewStyle(.balanced)
         .onAppear {
             ZipManager.shared.unzipPackage()
             ZipManager.shared.printExtractedFiles()
@@ -71,17 +74,15 @@ struct ContentView: View {
             )
         } else {
             AnyView(
-                Button {
-                    selectedNode = node
-                } label: {
+                NavigationLink(value: node, label: {
                     HStack(spacing: 0) {
                         Text("\(node.language?.title ?? "")")
 
                         Spacer()
                         favIndicator(node: node)
                     }
-                }
-                    .frame(height: 30)
+                })
+                .frame(height: 30)
             )
         }
     }
