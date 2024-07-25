@@ -13,6 +13,7 @@ struct ContentView: View {
     //    @Environment(\.managedObjectContext) private var viewContext
 
     @State var content: Content?
+    @State var selectedNode: Node?
 
     var body: some View {
         NavigationSplitView {
@@ -22,10 +23,8 @@ struct ContentView: View {
                 }
                 .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
             }
-        } content: {
-            Text("Content")
         } detail: {
-            Text("Detail")
+            NodeView(node: selectedNode)
         }
         .onAppear {
             ZipManager.shared.unzipPackage()
@@ -53,7 +52,9 @@ struct ContentView: View {
             )
         } else {
             AnyView(
-                Text("\(node.language?.title ?? "")")
+                Button("\(node.language?.title ?? "")") {
+                    selectedNode = node
+                }
                     .frame(height: 30)
             )
         }
