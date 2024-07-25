@@ -44,6 +44,7 @@ struct ViewItem: Decodable {
 }
 
 struct Node: Decodable {
+
     let id: String
     let nodeId: String
     let type: NodeType
@@ -60,6 +61,12 @@ struct Node: Decodable {
         case chapterNumberUsed = "chapternumberused"
         case language
         case nodes = "node"
+    }
+}
+
+extension Node: Equatable {
+    static func == (lhs: Node, rhs: Node) -> Bool {
+        lhs.id == rhs.id
     }
 }
 

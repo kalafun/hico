@@ -52,8 +52,10 @@ struct ContentView: View {
             )
         } else {
             AnyView(
-                Button("\(node.language?.title ?? "")") {
+                Button {
                     selectedNode = node
+                } label: {
+                    Text("\(node.language?.title ?? "")")
                 }
                     .frame(height: 30)
             )
