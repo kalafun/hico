@@ -16,7 +16,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationStack {
-            Text("Hello")
+            NodeView(node: content?.navigationStructure.view.node)
         }
         .onAppear {
             ZipManager.shared.unzipPackage()

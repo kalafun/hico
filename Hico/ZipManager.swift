@@ -39,8 +39,9 @@ class ZipManager {
         destinationInsideURL.appendingPathComponent("structure.xml")
     }()
 
-    func documentURL(at path: String) -> URL {
-        destinationInsideURL.appendingPathComponent(path)
+    func documentURL(at path: String?) -> URL? {
+        guard let path = path else { return nil }
+        return destinationInsideURL.appendingPathComponent(path)
     }
 
     func unzipPackage() {

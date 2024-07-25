@@ -19,6 +19,7 @@
 		C3E74FEE2C5152D800518958 /* XMLCoder in Frameworks */ = {isa = PBXBuildFile; productRef = C3E74FED2C5152D800518958 /* XMLCoder */; };
 		C3E74FF12C51579D00518958 /* Structure.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FF02C51579D00518958 /* Structure.swift */; };
 		C3E74FF32C5164B800518958 /* NodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FF22C5164B800518958 /* NodeView.swift */; };
+		C3E74FF62C51673500518958 /* WebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FF52C51673500518958 /* WebView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 		C3E74FEA2C514A8E00518958 /* HICO_MobileDuck.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = HICO_MobileDuck.zip; sourceTree = "<group>"; };
 		C3E74FF02C51579D00518958 /* Structure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Structure.swift; sourceTree = "<group>"; };
 		C3E74FF22C5164B800518958 /* NodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeView.swift; sourceTree = "<group>"; };
+		C3E74FF52C51673500518958 /* WebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,15 +69,14 @@
 		C3E74FD02C5147D000518958 /* Hico */ = {
 			isa = PBXGroup;
 			children = (
-				C3E74FEF2C51579700518958 /* Models */,
-				C3E74FD32C5147D000518958 /* ContentView.swift */,
 				C3E74FDC2C5147D200518958 /* Hico.xcdatamodeld */,
 				C3E74FD12C5147D000518958 /* HicoApp.swift */,
+				C3E74FEF2C51579700518958 /* Models */,
 				C3E74FDA2C5147D200518958 /* Persistence.swift */,
 				C3E74FD72C5147D200518958 /* Preview Content */,
 				C3E74FE92C514A7600518958 /* Resources */,
+				C3E74FF42C51672400518958 /* Views */,
 				C3E74FE72C514A3C00518958 /* ZipManager.swift */,
-				C3E74FF22C5164B800518958 /* NodeView.swift */,
 			);
 			path = Hico;
 			sourceTree = "<group>";
@@ -103,6 +104,16 @@
 				C3E74FF02C51579D00518958 /* Structure.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C3E74FF42C51672400518958 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C3E74FD32C5147D000518958 /* ContentView.swift */,
+				C3E74FF22C5164B800518958 /* NodeView.swift */,
+				C3E74FF52C51673500518958 /* WebView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3E74FDE2C5147D200518958 /* Hico.xcdatamodeld in Sources */,
+				C3E74FF62C51673500518958 /* WebView.swift in Sources */,
 				C3E74FDB2C5147D200518958 /* Persistence.swift in Sources */,
 				C3E74FE82C514A3C00518958 /* ZipManager.swift in Sources */,
 				C3E74FD42C5147D000518958 /* ContentView.swift in Sources */,

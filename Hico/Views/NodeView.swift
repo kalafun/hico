@@ -9,11 +9,34 @@ import SwiftUI
 
 struct NodeView: View {
 
-    @State var node: Node
+    let node: Node?
 
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
-            .navigationTitle(node.language?.title ?? "")
+        if let node = node {
+            switch node.type {
+                case .manual:
+                    return AnyView(
+                        Text(node.language?.title ?? "")
+                    )
+                case .document:
+                    return AnyView(
+                        WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
+                            .navigationTitle(node.language?.title ?? "")
+                    )
+                case .folder:
+                    return AnyView(
+                        Text("Folder")
+                    )
+                case .part:
+                    return AnyView(
+                        Text("Part")
+                    )
+            }
+        } else {
+            return AnyView(
+                Text("No data to show")
+            )
+        }
     }
 }
 
