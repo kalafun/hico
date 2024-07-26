@@ -18,11 +18,6 @@ struct ContentView: View {
 
     @StateObject var favouritesManager = FavouritesManager.shared
 
-//    @FetchRequest(
-//        sortDescriptors: [NSSortDescriptor(keyPath: \CDNode.createdAt, ascending: true)],
-//        animation: .default)
-//    private var favouriteNodes: FetchedResults<CDNode>
-
     @State var content: Content?
     @State var selectedNode: Node?
     @State var pickerSelection = PickerSelection.content
