@@ -11,35 +11,34 @@ struct NodeView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @StateObject var favouritesManager = FavouritesManager.shared
-    let node: Node?
     @Binding var selectedNode: Node?
 
     var body: some View {
         GeometryReader { reader in
             Group {
-                if let node = node {
-                    switch node.type {
+                if let selectedNode = selectedNode {
+                    switch selectedNode.type {
                         case .manual:
-                            Text(node.language?.title ?? "")
+                            Text(selectedNode.language?.title ?? "")
                         case .document:
-                            WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
-                                .navigationTitle(node.language?.title ?? "")
+                            WebView(fileURL: ZipManager.shared.documentURL(at: selectedNode.language?.path))
+                                .navigationTitle(selectedNode.language?.title ?? "")
                                 .toolbar {
                                     ToolbarItem(placement: .topBarTrailing) {
                                         Button {
-                                            favouritesManager.toggleFavourites(nodeId: node.id, in: viewContext)
+                                            favouritesManager.toggleFavourites(nodeId: selectedNode.id, in: viewContext)
                                         } label: {
-                                            favIndicator(node: node)
+                                            favIndicator(node: selectedNode)
                                         }
                                     }
                                 }
                         case .part, .folder:
                             List(selection: $selectedNode) {
-                                NodeContentListView(node: node)
+                                NodeContentListView(node: selectedNode)
                             }
                             .frame(height: reader.size.height)
                             .padding(.top, 60)
-                            .navigationTitle(node.language?.title ?? "")
+                            .navigationTitle(selectedNode.language?.title ?? "")
                             .toolbarTitleDisplayMode(.inline)
                     }
                 }
@@ -64,7 +63,7 @@ struct NodeView: View {
 #Preview {
     NavigationStack {
         NodeView(
-            node: Node(
+            selectedNode: .constant(Node(
                 id: "id1",
                 nodeId: "nodeId1",
                 type: .part,
@@ -100,8 +99,7 @@ struct NodeView: View {
                         ]
                     )
                 ]
-            ),
-            selectedNode: .constant(nil)
+            ))
         )
     }
 }

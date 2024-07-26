@@ -56,7 +56,7 @@ struct ContentView: View {
                 }
             }
         } detail: {
-            NodeView(node: selectedNode, selectedNode: $selectedNode)
+            NodeView(selectedNode: $selectedNode)
                 .ignoresSafeArea()
         }
         .navigationSplitViewStyle(.balanced)
