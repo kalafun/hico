@@ -135,12 +135,7 @@ struct NodeContentListView: View {
         } else {
             AnyView(
                 NavigationLink(value: node, label: {
-                    HStack(spacing: 0) {
-                        Text("\(node.language?.title ?? "")")
-
-                        Spacer()
-                        favIndicator(node: node)
-                    }
+                    listRow(for: node)
                 })
                 .frame(height: 30)
             )

@@ -15,41 +15,35 @@ struct NodeView: View {
     @Binding var selectedNode: Node?
 
     var body: some View {
-        guard let node = node  else {
-            return AnyView(
-                Text("No data to show")
-            )
-        }
-
-        switch node.type {
-            case .manual:
-                return AnyView(
-                    Text(node.language?.title ?? "")
-                )
-            case .document:
-                return AnyView(
-                    WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
-                        .navigationTitle(node.language?.title ?? "")
-                        .toolbar {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    favouritesManager.toggleFavourites(nodeId: node.id, in: viewContext)
-                                } label: {
-                                    favIndicator(node: node)
+        GeometryReader { reader in
+            Group {
+                if let node = node {
+                    switch node.type {
+                        case .manual:
+                            Text(node.language?.title ?? "")
+                        case .document:
+                            WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
+                                .navigationTitle(node.language?.title ?? "")
+                                .toolbar {
+                                    ToolbarItem(placement: .topBarTrailing) {
+                                        Button {
+                                            favouritesManager.toggleFavourites(nodeId: node.id, in: viewContext)
+                                        } label: {
+                                            favIndicator(node: node)
+                                        }
+                                    }
                                 }
+                        case .part, .folder:
+                            List(selection: $selectedNode) {
+                                NodeContentListView(node: node)
                             }
-                        }
-                )
-            case .folder:
-                return AnyView(
-                    Text("Folder")
-                )
-            case .part:
-                return AnyView(
-                    List(selection: $selectedNode) {
-                        NodeContentListView(node: node)
+                            .frame(height: reader.size.height)
+                            .padding(.top, 60)
+                            .navigationTitle(node.language?.title ?? "")
+                            .toolbarTitleDisplayMode(.inline)
                     }
-                )
+                }
+            }
         }
     }
 
