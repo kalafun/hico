@@ -25,34 +25,12 @@ struct ContentView: View {
     var body: some View {
         NavigationSplitView {
             VStack {
-                Picker(selection: $pickerSelection) {
-                    Text("Content").tag(PickerSelection.content)
-                    Text("Favourites").tag(PickerSelection.favourites)
-                } label: {
-                    Text("Pick between navigation and Favourites")
-                }
-                .pickerStyle(.segmented)
-                .padding(.horizontal)
+                pickerView
 
                 if pickerSelection == .content {
-                    if let node = content?.navigationStructure.view.node {
-                        List(selection: $selectedNode) {
-                            NodeContentListView(node: node)
-                        }
-                        .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
-                    }
+                    contentList
                 } else if pickerSelection == .favourites {
-                    List(selection: $selectedNode) {
-                        if let content = content {
-                            let favouriteNodes = favouritesManager.getFavoriteNodesDetails(from: content)
-                            ForEach(favouriteNodes, id: \.id) { node in
-                                NavigationLink(value: node) {
-                                    listRow(for: node)
-                                }
-                            }
-                        }
-                    }
-                    .navigationTitle("Favourites")
+                    favouritesList
                 }
             }
         } detail: {
@@ -66,6 +44,40 @@ struct ContentView: View {
             parsePackageContent()
             favouritesManager.loadFavorites(context: viewContext)
         }
+    }
+
+    private var contentList: some View {
+        List(selection: $selectedNode) {
+            if let node = content?.navigationStructure.view.node {
+                NodeContentListView(node: node)
+            }
+        }
+        .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
+    }
+
+    private var favouritesList: some View {
+        List(selection: $selectedNode) {
+            if let content = content {
+                let favouriteNodes = favouritesManager.getFavoriteNodesDetails(from: content)
+                ForEach(favouriteNodes, id: \.id) { node in
+                    NavigationLink(value: node) {
+                        listRow(for: node)
+                    }
+                }
+            }
+        }
+        .navigationTitle("Favourites")
+    }
+
+    private var pickerView: some View {
+        Picker(selection: $pickerSelection) {
+            Text("Content").tag(PickerSelection.content)
+            Text("Favourites").tag(PickerSelection.favourites)
+        } label: {
+            Text("Pick between navigation and Favourites")
+        }
+        .pickerStyle(.segmented)
+        .padding(.horizontal)
     }
 
     private func listRow(for node: Node) -> some View {
