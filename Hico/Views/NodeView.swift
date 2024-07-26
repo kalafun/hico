@@ -12,41 +12,44 @@ struct NodeView: View {
 
     @StateObject var favouritesManager = FavouritesManager.shared
     let node: Node?
+    @Binding var selectedNode: Node?
 
     var body: some View {
-        if let node = node {
-            switch node.type {
-                case .manual:
-                    return AnyView(
-                        Text(node.language?.title ?? "")
-                    )
-                case .document:
-                    return AnyView(
-                        WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
-                            .navigationTitle(node.language?.title ?? "")
-                            .toolbar {
-                                ToolbarItem(placement: .topBarTrailing) {
-                                    Button {
-                                        favouritesManager.toggleFavourites(nodeId: node.id, in: viewContext)
-                                    } label: {
-                                        favIndicator(node: node)
-                                    }
-                                }
-                            }
-                    )
-                case .folder:
-                    return AnyView(
-                        Text("Folder")
-                    )
-                case .part:
-                    return AnyView(
-                        Text("Part")
-                    )
-            }
-        } else {
+        guard let node = node  else {
             return AnyView(
                 Text("No data to show")
             )
+        }
+
+        switch node.type {
+            case .manual:
+                return AnyView(
+                    Text(node.language?.title ?? "")
+                )
+            case .document:
+                return AnyView(
+                    WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
+                        .navigationTitle(node.language?.title ?? "")
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button {
+                                    favouritesManager.toggleFavourites(nodeId: node.id, in: viewContext)
+                                } label: {
+                                    favIndicator(node: node)
+                                }
+                            }
+                        }
+                )
+            case .folder:
+                return AnyView(
+                    Text("Folder")
+                )
+            case .part:
+                return AnyView(
+                    List(selection: $selectedNode) {
+                        NodeContentListView(node: node)
+                    }
+                )
         }
     }
 
@@ -70,7 +73,7 @@ struct NodeView: View {
             node: Node(
                 id: "id1",
                 nodeId: "nodeId1",
-                type: .document,
+                type: .part,
                 chapterNumber: nil,
                 chapterNumberUsed: nil,
                 language: Language(name: "en_US", title: "Duck", path: nil),
@@ -103,7 +106,8 @@ struct NodeView: View {
                         ]
                     )
                 ]
-            )
+            ),
+            selectedNode: .constant(nil)
         )
     }
 }
