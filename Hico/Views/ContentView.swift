@@ -14,7 +14,14 @@ enum PickerSelection {
 }
 
 struct ContentView: View {
-    //    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.managedObjectContext) private var viewContext
+
+    @StateObject var favouritesManager = FavouritesManager.shared
+
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \CDNode.createdAt, ascending: true)],
+//        animation: .default)
+//    private var favouriteNodes: FetchedResults<CDNode>
 
     @State var content: Content?
     @State var selectedNode: Node?
@@ -49,6 +56,10 @@ struct ContentView: View {
             ZipManager.shared.unzipPackage()
             ZipManager.shared.printExtractedFiles()
             parsePackageContent()
+            favouritesManager.loadFavorites(context: viewContext)
+
+            print("Favourites:")
+            print(favouritesManager.favoriteNodes)
         }
     }
 
@@ -90,9 +101,13 @@ struct ContentView: View {
     private func favIndicator(node: Node) -> some View {
         Button {
             print("did Tap node:\(node.language?.title)")
+            favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
         } label: {
-            // TODO: Show filled heart when the content is favourited
-            Image(systemName: "heart")
+            if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
+                Image(systemName: "heart.fill")
+            } else {
+                Image(systemName: "heart")
+            }
         }
         .buttonStyle(PlainButtonStyle())
     }
@@ -110,5 +125,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
