@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct NodeView: View {
+    @Environment(\.managedObjectContext) private var viewContext
 
+    @StateObject var favouritesManager = FavouritesManager.shared
     let node: Node?
 
     var body: some View {
@@ -22,6 +24,15 @@ struct NodeView: View {
                     return AnyView(
                         WebView(fileURL: ZipManager.shared.documentURL(at: node.language?.path))
                             .navigationTitle(node.language?.title ?? "")
+                            .toolbar {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    Button {
+                                        favouritesManager.toggleFavourites(nodeId: node.id, in: viewContext)
+                                    } label: {
+                                        favIndicator(node: node)
+                                    }
+                                }
+                            }
                     )
                 case .folder:
                     return AnyView(
@@ -38,6 +49,20 @@ struct NodeView: View {
             )
         }
     }
+
+    private func favIndicator(node: Node) -> some View {
+        Button {
+            print("did Tap node:\(node.language?.title)")
+            favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
+        } label: {
+            if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
+                Image(systemName: "heart.fill")
+            } else {
+                Image(systemName: "heart")
+            }
+        }
+        .buttonStyle(PlainButtonStyle())
+    }
 }
 
 #Preview {
@@ -46,7 +71,7 @@ struct NodeView: View {
             node: Node(
                 id: "id1",
                 nodeId: "nodeId1",
-                type: .manual,
+                type: .document,
                 chapterNumber: nil,
                 chapterNumberUsed: nil,
                 language: Language(name: "en_US", title: "Duck", path: nil),
