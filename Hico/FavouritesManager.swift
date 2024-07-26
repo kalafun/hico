@@ -89,4 +89,18 @@ class FavouritesManager: ObservableObject {
     func nodeIsInfavourites(nodeId: String, in context: NSManagedObjectContext) -> Bool {
         favoriteNodes.contains(nodeId)
     }
+
+    func getFavoriteNodesDetails(from content: Content) -> [Node] {
+        favoriteNodes.compactMap { nodeId in
+            findNode(withId: nodeId, in: content.navigationStructure.view.node)
+        }
+    }
+
+    private func findNode(withId id: String, in node: Node?) -> Node? {
+        guard let node = node else { return nil }
+        if node.nodeId == id {
+            return node
+        }
+        return node.nodes?.compactMap { findNode(withId: id, in: $0) }.first
+    }
 }

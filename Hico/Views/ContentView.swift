@@ -34,12 +34,28 @@ struct ContentView: View {
                 .pickerStyle(.segmented)
                 .padding(.horizontal)
 
-                if let node = content?.navigationStructure.view.node {
-                    List(selection: $selectedNode) {
-                        nodeContentFor(node: node)
+                if pickerSelection == .content {
+                    if let node = content?.navigationStructure.view.node {
+                        List(selection: $selectedNode) {
+                            nodeContentFor(node: node)
+                        }
+                        .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
+                        .listStyle(.grouped)
                     }
-                    .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
-
+                } else if pickerSelection == .favourites {
+                    List(selection: $selectedNode) {
+                        if let content = content {
+                            let favouriteNodes = favouritesManager.getFavoriteNodesDetails(from: content)
+                            ForEach(favouriteNodes, id: \.id) { node in
+                                NavigationLink(value: node) {
+                                    Text("\(node.language?.title ?? "")")
+                                    Spacer()
+                                    favIndicator(node: node)
+                                }
+                            }
+                        }
+                    }
+                    .navigationTitle("Favourites")
                 }
             }
         } detail: {
