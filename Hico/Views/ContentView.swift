@@ -65,9 +65,6 @@ struct ContentView: View {
             ZipManager.shared.printExtractedFiles()
             parsePackageContent()
             favouritesManager.loadFavorites(context: viewContext)
-
-            print("Favourites:")
-            print(favouritesManager.favoriteNodes)
         }
     }
 
@@ -112,7 +109,6 @@ struct ContentView: View {
 
     private func favIndicator(node: Node) -> some View {
         Button {
-            print("did Tap node:\(node.language?.title)")
             favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
         } label: {
             if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
@@ -129,7 +125,7 @@ struct ContentView: View {
             let data = try Data(contentsOf: ZipManager.shared.structureURL)
             let structure = try XMLDecoder().decode(Structure.self, from: data)
             self.content = structure.content
-            print(content!)
+            print(content ?? "Content nil")
         } catch {
             print("error getting data representation from structure.xml")
         }

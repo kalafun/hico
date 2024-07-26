@@ -52,7 +52,6 @@ struct NodeView: View {
 
     private func favIndicator(node: Node) -> some View {
         Button {
-            print("did Tap node:\(node.language?.title)")
             favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
         } label: {
             if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
