@@ -14,33 +14,30 @@ struct NodeView: View {
     @Binding var selectedNode: Node?
 
     var body: some View {
-        GeometryReader { reader in
-            Group {
-                if let selectedNode = selectedNode {
-                    switch selectedNode.type {
-                        case .manual:
-                            Text(selectedNode.language?.title ?? "")
-                        case .document:
-                            WebView(fileURL: ZipManager.shared.documentURL(at: selectedNode.language?.path))
-                                .navigationTitle(selectedNode.language?.title ?? "")
-                                .toolbar {
-                                    ToolbarItem(placement: .topBarTrailing) {
-                                        Button {
-                                            favouritesManager.toggleFavourites(nodeId: selectedNode.id, in: viewContext)
-                                        } label: {
-                                            favIndicator(node: selectedNode)
-                                        }
+        Group {
+            if let selectedNode = selectedNode {
+                switch selectedNode.type {
+                    case .manual:
+                        Text(selectedNode.language?.title ?? "")
+                    case .document:
+                        WebView(fileURL: ZipManager.shared.documentURL(at: selectedNode.language?.path))
+                            .navigationTitle(selectedNode.language?.title ?? "")
+                            .toolbar {
+                                ToolbarItem(placement: .topBarTrailing) {
+                                    Button {
+                                        favouritesManager.toggleFavourites(nodeId: selectedNode.id, in: viewContext)
+                                    } label: {
+                                        favIndicator(node: selectedNode)
                                     }
                                 }
-                        case .part, .folder:
-                            List(selection: $selectedNode) {
-                                NodeContentListView(node: selectedNode)
                             }
-                            .frame(height: reader.size.height)
-                            .padding(.top, 60)
-                            .navigationTitle(selectedNode.language?.title ?? "")
-                            .toolbarTitleDisplayMode(.inline)
-                    }
+                    case .part, .folder:
+                        List(selection: $selectedNode) {
+                            NodeContentListView(node: selectedNode)
+                        }
+                        .padding(.top, 60)
+                        .navigationTitle(selectedNode.language?.title ?? "")
+                        .toolbarTitleDisplayMode(.inline)
                 }
             }
         }
