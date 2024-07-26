@@ -40,7 +40,6 @@ struct ContentView: View {
                             nodeContentFor(node: node)
                         }
                         .navigationTitle(content?.navigationStructure.view.node.language?.title ?? "")
-                        .listStyle(.grouped)
                     }
                 } else if pickerSelection == .favourites {
                     List(selection: $selectedNode) {
@@ -48,9 +47,7 @@ struct ContentView: View {
                             let favouriteNodes = favouritesManager.getFavoriteNodesDetails(from: content)
                             ForEach(favouriteNodes, id: \.id) { node in
                                 NavigationLink(value: node) {
-                                    Text("\(node.language?.title ?? "")")
-                                    Spacer()
-                                    favIndicator(node: node)
+                                    listRow(for: node)
                                 }
                             }
                         }
@@ -81,15 +78,7 @@ struct ContentView: View {
                     DisclosureGroup(
                         content: { nodeContentFor(node: node) },
                         label: {
-                            HStack(spacing: 0) {
-                                if let chapterNumber = node.chapterNumber {
-                                    Text(chapterNumber.description + " - ")
-                                }
-                                Text((node.language?.title ?? ""))
-
-                                Spacer()
-                                favIndicator(node: node)
-                            }
+                            listRow(for: node)
                         }
                     )
                 }
@@ -106,6 +95,18 @@ struct ContentView: View {
                 })
                 .frame(height: 30)
             )
+        }
+    }
+
+    private func listRow(for node: Node) -> some View {
+        HStack(spacing: 0) {
+            if let chapterNumber = node.chapterNumber {
+                Text(chapterNumber.description + " - ")
+            }
+            Text((node.language?.title ?? ""))
+
+            Spacer()
+            favIndicator(node: node)
         }
     }
 
