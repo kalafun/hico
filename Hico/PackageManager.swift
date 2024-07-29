@@ -7,11 +7,12 @@
 
 import ZIPFoundation
 import Foundation
+import XMLCoder
 
-class ZipManager {
+class PackageManager {
 
     private init() { }
-    static let shared = ZipManager()
+    static let shared = PackageManager()
 
     let fileManager = FileManager()
     var documentsDirectoryURL: URL {
@@ -66,6 +67,19 @@ class ZipManager {
         } catch {
             print("Extraction of ZIP archive failed with error: \(error)")
         }
+    }
+
+    func parsePackageContent() -> Content? {
+        do {
+            let data = try Data(contentsOf: PackageManager.shared.structureURL)
+            let structure = try XMLDecoder().decode(Structure.self, from: data)
+            print(structure.content)
+            return structure.content
+        } catch {
+            print("error getting data representation from structure.xml")
+        }
+
+        return nil
     }
 
     func printExtractedFiles() {

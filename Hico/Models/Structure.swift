@@ -64,6 +64,50 @@ struct Node: Decodable {
     }
 }
 
+extension Node {
+    
+    static var mocked: Node {
+        Node(
+            id: "id1",
+            nodeId: "nodeId1",
+            type: .part,
+            chapterNumber: nil,
+            chapterNumberUsed: nil,
+            language: Language(name: "en_US", title: "Duck", path: nil),
+            nodes: [
+                Node(
+                    id: "id2",
+                    nodeId: "nodeId2",
+                    type: .part,
+                    chapterNumber: "1",
+                    chapterNumberUsed: true,
+                    language: Language(
+                        name: "en_US",
+                        title: "Introduction",
+                        path: nil
+                    ),
+                    nodes: [
+                        Node(
+                            id: "id3",
+                            nodeId: "nodeId3",
+                            type: .document,
+                            chapterNumber: "2",
+                            chapterNumberUsed: true,
+                            language: Language(
+                                name: "en_US",
+                                title: "Duck Overview",
+                                path: "duck/DUCK.html"
+                            ),
+                            nodes: nil
+                        )
+                    ]
+                )
+            ]
+        )
+
+    }
+}
+
 extension Node: Equatable, Hashable {
     static func == (lhs: Node, rhs: Node) -> Bool {
         lhs.id == rhs.id

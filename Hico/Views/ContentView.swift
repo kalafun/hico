@@ -7,7 +7,6 @@
 
 import SwiftUI
 import CoreData
-import XMLCoder
 
 enum PickerSelection {
     case content, favourites
@@ -35,13 +34,13 @@ struct ContentView: View {
             }
         } detail: {
             NodeView(selectedNode: $selectedNode)
-                .ignoresSafeArea()
+                .ignoresSafeArea(edges: .bottom)
         }
         .navigationSplitViewStyle(.balanced)
         .onAppear {
-            ZipManager.shared.unzipPackage()
-            ZipManager.shared.printExtractedFiles()
-            parsePackageContent()
+            PackageManager.shared.unzipPackage()
+            PackageManager.shared.printExtractedFiles()
+            self.content = PackageManager.shared.parsePackageContent()
             favouritesManager.loadFavorites(context: viewContext)
         }
     }
@@ -104,78 +103,8 @@ struct ContentView: View {
         }
         .buttonStyle(PlainButtonStyle())
     }
-
-    private func parsePackageContent() {
-        do {
-            let data = try Data(contentsOf: ZipManager.shared.structureURL)
-            let structure = try XMLDecoder().decode(Structure.self, from: data)
-            self.content = structure.content
-            print(content ?? "Content nil")
-        } catch {
-            print("error getting data representation from structure.xml")
-        }
-    }
 }
 
 #Preview {
     ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-}
-
-struct NodeContentListView: View {
-
-    let node: Node
-
-    @StateObject var favouritesManager = FavouritesManager.shared
-    @Environment(\.managedObjectContext) private var viewContext
-
-    var body: some View {
-        nodeContentFor(node: node)
-    }
-
-    func nodeContentFor(node: Node) -> some View {
-        if let nodes = node.nodes {
-            AnyView(
-                ForEach(nodes, id: \.id) { node in
-                    DisclosureGroup(
-                        content: { nodeContentFor(node: node) },
-                        label: {
-                            listRow(for: node)
-                        }
-                    )
-                }
-            )
-        } else {
-            AnyView(
-                NavigationLink(value: node, label: {
-                    listRow(for: node)
-                })
-                .frame(height: 30)
-            )
-        }
-    }
-
-    private func listRow(for node: Node) -> some View {
-        HStack(spacing: 0) {
-            if let chapterNumber = node.chapterNumber {
-                Text(chapterNumber.description + " - ")
-            }
-            Text((node.language?.title ?? ""))
-
-            Spacer()
-            favIndicator(node: node)
-        }
-    }
-
-    private func favIndicator(node: Node) -> some View {
-        Button {
-            favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
-        } label: {
-            if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
-                Image(systemName: "heart.fill")
-            } else {
-                Image(systemName: "heart")
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
-    }
 }

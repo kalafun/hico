@@ -20,7 +20,7 @@ struct NodeView: View {
                     case .manual:
                         Text(selectedNode.language?.title ?? "")
                     case .document:
-                        WebView(fileURL: ZipManager.shared.documentURL(at: selectedNode.language?.path))
+                        WebView(fileURL: PackageManager.shared.documentURL(at: selectedNode.language?.path))
                             .navigationTitle(selectedNode.language?.title ?? "")
                             .toolbar {
                                 ToolbarItem(placement: .topBarTrailing) {
@@ -60,43 +60,7 @@ struct NodeView: View {
 #Preview {
     NavigationStack {
         NodeView(
-            selectedNode: .constant(Node(
-                id: "id1",
-                nodeId: "nodeId1",
-                type: .part,
-                chapterNumber: nil,
-                chapterNumberUsed: nil,
-                language: Language(name: "en_US", title: "Duck", path: nil),
-                nodes: [
-                    Node(
-                        id: "id2",
-                        nodeId: "nodeId2",
-                        type: .part,
-                        chapterNumber: "1",
-                        chapterNumberUsed: true,
-                        language: Language(
-                            name: "en_US",
-                            title: "Introduction",
-                            path: nil
-                        ),
-                        nodes: [
-                            Node(
-                                id: "id3",
-                                nodeId: "nodeId3",
-                                type: .document,
-                                chapterNumber: "2",
-                                chapterNumberUsed: true,
-                                language: Language(
-                                    name: "en_US",
-                                    title: "Duck Overview",
-                                    path: "duck/DUCK.html"
-                                ),
-                                nodes: nil
-                            )
-                        ]
-                    )
-                ]
-            ))
+            selectedNode: .constant(Node.mocked)
         )
     }
 }
