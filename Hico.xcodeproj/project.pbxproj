@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		C37C6A252C53942700411ACD /* FavouritesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37C6A242C53942700411ACD /* FavouritesManager.swift */; };
 		C37C6A272C54208600411ACD /* NodeContentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C37C6A262C54208600411ACD /* NodeContentListView.swift */; };
+		C3A65CBF2C57549700A1E6B2 /* ListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65CBE2C57549700A1E6B2 /* ListRow.swift */; };
+		C3A65CC12C5754C300A1E6B2 /* FavIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3A65CC02C5754C300A1E6B2 /* FavIndicator.swift */; };
 		C3E74FD22C5147D000518958 /* HicoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FD12C5147D000518958 /* HicoApp.swift */; };
 		C3E74FD42C5147D000518958 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3E74FD32C5147D000518958 /* ContentView.swift */; };
 		C3E74FD62C5147D200518958 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3E74FD52C5147D200518958 /* Assets.xcassets */; };
@@ -27,6 +29,8 @@
 /* Begin PBXFileReference section */
 		C37C6A242C53942700411ACD /* FavouritesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesManager.swift; sourceTree = "<group>"; };
 		C37C6A262C54208600411ACD /* NodeContentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeContentListView.swift; sourceTree = "<group>"; };
+		C3A65CBE2C57549700A1E6B2 /* ListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRow.swift; sourceTree = "<group>"; };
+		C3A65CC02C5754C300A1E6B2 /* FavIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavIndicator.swift; sourceTree = "<group>"; };
 		C3E74FCE2C5147D000518958 /* Hico.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Hico.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3E74FD12C5147D000518958 /* HicoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HicoApp.swift; sourceTree = "<group>"; };
 		C3E74FD32C5147D000518958 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -77,11 +81,11 @@
 				C3E74FDC2C5147D200518958 /* Hico.xcdatamodeld */,
 				C3E74FD12C5147D000518958 /* HicoApp.swift */,
 				C3E74FEF2C51579700518958 /* Models */,
+				C3E74FE72C514A3C00518958 /* PackageManager.swift */,
 				C3E74FDA2C5147D200518958 /* Persistence.swift */,
 				C3E74FD72C5147D200518958 /* Preview Content */,
 				C3E74FE92C514A7600518958 /* Resources */,
 				C3E74FF42C51672400518958 /* Views */,
-				C3E74FE72C514A3C00518958 /* PackageManager.swift */,
 			);
 			path = Hico;
 			sourceTree = "<group>";
@@ -118,6 +122,8 @@
 				C37C6A262C54208600411ACD /* NodeContentListView.swift */,
 				C3E74FF22C5164B800518958 /* NodeView.swift */,
 				C3E74FF52C51673500518958 /* WebView.swift */,
+				C3A65CBE2C57549700A1E6B2 /* ListRow.swift */,
+				C3A65CC02C5754C300A1E6B2 /* FavIndicator.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -204,11 +210,13 @@
 				C3E74FDE2C5147D200518958 /* Hico.xcdatamodeld in Sources */,
 				C3E74FF62C51673500518958 /* WebView.swift in Sources */,
 				C3E74FDB2C5147D200518958 /* Persistence.swift in Sources */,
+				C3A65CC12C5754C300A1E6B2 /* FavIndicator.swift in Sources */,
 				C3E74FE82C514A3C00518958 /* PackageManager.swift in Sources */,
 				C3E74FD42C5147D000518958 /* ContentView.swift in Sources */,
 				C3E74FD22C5147D000518958 /* HicoApp.swift in Sources */,
 				C37C6A272C54208600411ACD /* NodeContentListView.swift in Sources */,
 				C37C6A252C53942700411ACD /* FavouritesManager.swift in Sources */,
+				C3A65CBF2C57549700A1E6B2 /* ListRow.swift in Sources */,
 				C3E74FF32C5164B800518958 /* NodeView.swift in Sources */,
 				C3E74FF12C51579D00518958 /* Structure.swift in Sources */,
 			);

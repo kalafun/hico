@@ -27,7 +27,7 @@ struct NodeView: View {
                                     Button {
                                         favouritesManager.toggleFavourites(nodeId: selectedNode.id, in: viewContext)
                                     } label: {
-                                        favIndicator(node: selectedNode)
+                                        FavIndicator(node: selectedNode)
                                     }
                                 }
                             }
@@ -41,19 +41,6 @@ struct NodeView: View {
                 }
             }
         }
-    }
-
-    private func favIndicator(node: Node) -> some View {
-        Button {
-            favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
-        } label: {
-            if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
-                Image(systemName: "heart.fill")
-            } else {
-                Image(systemName: "heart")
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

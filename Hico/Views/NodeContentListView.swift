@@ -25,7 +25,7 @@ struct NodeContentListView: View {
                     DisclosureGroup(
                         content: { nodeContentFor(node: node) },
                         label: {
-                            listRow(for: node)
+                            ListRow(node: node)
                         }
                     )
                 }
@@ -33,36 +33,11 @@ struct NodeContentListView: View {
         } else {
             AnyView(
                 NavigationLink(value: node, label: {
-                    listRow(for: node)
+                    ListRow(node: node)
                 })
                 .frame(height: 30)
             )
         }
-    }
-
-    private func listRow(for node: Node) -> some View {
-        HStack(spacing: 0) {
-            if let chapterNumber = node.chapterNumber {
-                Text(chapterNumber.description + " - ")
-            }
-            Text((node.language?.title ?? ""))
-
-            Spacer()
-            favIndicator(node: node)
-        }
-    }
-
-    private func favIndicator(node: Node) -> some View {
-        Button {
-            favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
-        } label: {
-            if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
-                Image(systemName: "heart.fill")
-            } else {
-                Image(systemName: "heart")
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 

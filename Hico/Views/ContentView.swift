@@ -60,7 +60,7 @@ struct ContentView: View {
                 let favouriteNodes = favouritesManager.getFavoriteNodesDetails(from: content)
                 ForEach(favouriteNodes, id: \.id) { node in
                     NavigationLink(value: node) {
-                        listRow(for: node)
+                        ListRow(node: node)
                     }
                 }
             }
@@ -77,31 +77,6 @@ struct ContentView: View {
         }
         .pickerStyle(.segmented)
         .padding(.horizontal)
-    }
-
-    private func listRow(for node: Node) -> some View {
-        HStack(spacing: 0) {
-            if let chapterNumber = node.chapterNumber {
-                Text(chapterNumber.description + " - ")
-            }
-            Text((node.language?.title ?? ""))
-
-            Spacer()
-            favIndicator(node: node)
-        }
-    }
-
-    private func favIndicator(node: Node) -> some View {
-        Button {
-            favouritesManager.toggleFavourites(nodeId: node.nodeId, in: viewContext)
-        } label: {
-            if favouritesManager.nodeIsInfavourites(nodeId: node.nodeId, in: viewContext) {
-                Image(systemName: "heart.fill")
-            } else {
-                Image(systemName: "heart")
-            }
-        }
-        .buttonStyle(PlainButtonStyle())
     }
 }
 
