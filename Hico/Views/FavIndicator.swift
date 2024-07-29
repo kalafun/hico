@@ -30,4 +30,5 @@ struct FavIndicator: View {
 
 #Preview {
     FavIndicator(node: Node.mocked)
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
